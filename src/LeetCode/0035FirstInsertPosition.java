@@ -1,13 +1,13 @@
 package LeetCode;
 
-class BinarySearch {
-    public int search(int[] nums, int target) {
+class FirstInsertPositions {
+    public int searchInsert(int[] nums, int target) {
         int middle = (nums.length - 1)/2;
         int lowerBound = 0;
-        int upperBound = nums.length - 1;
+        int upperBound = nums.length;
         while(nums[middle] != target){
             if(lowerBound > upperBound){
-                return -1;
+                return nums[middle] > target ? middle : middle + 1 ;
             }
             if(nums[middle] < target){
                 lowerBound = middle + 1;
