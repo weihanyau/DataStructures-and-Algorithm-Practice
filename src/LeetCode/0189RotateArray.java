@@ -18,6 +18,7 @@ class RotateArray {
         }
     }
 
+    //O(1) solution, wtf
     public void rotateWithReverse(int[] nums, int k) {
         k = k % nums.length;
         if(nums.length <= 1 || k == 0){
