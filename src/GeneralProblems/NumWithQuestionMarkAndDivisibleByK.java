@@ -1,32 +1,42 @@
 package GeneralProblems;
 
 public class NumWithQuestionMarkAndDivisibleByK{
-        public static int MaxXORSum(int[] a, int[] b){
-            return MaxXOR(a, b, 0);
-        }
+    public static int DivisibleByK(String s, int k){
+        int questionMark = 0;
+        boolean first = s.toCharArray()[0] == '?';
 
-        public static int MaxXOR(int[] a, int[] b, int index){
-            int max = 0, carry = 0;
-            if (index >= a.length){
-                int sum = 0;
-                for(int i = 0; i < a.length; i++){
-                    sum += a[i] ^ b[i];
-                }
-                return sum;
-            } else {
-                for(int i = index; i < a.length; i++){
-                    int temp = b[index];
-                    b[index] = b[i];
-                    b[i] = temp;
-                    carry = MaxXOR(a, b, index + 1);
-                    if(carry > max){
-                        max = carry;
-                    }
-                    temp = b[index];
-                    b[index] = b[i];
-                    b[i] = temp;
-                }
-                return max;
+        for(char c : s.toCharArray()){
+            if(c == '?'){
+                questionMark++;
             }
         }
+        int[] num = new int[questionMark];
+        if(first){
+            num[0] = 1;
+        }
+        int total = 0;
+        total += Permute(num, 0, s, k);
+        return total;
+    }
+    public static int Permute(int[] num, int index, String s, int k){
+        int total = 0;
+        if(index == num.length){
+            //System.out.println(Arrays.toString(num));
+            String sub = s;
+            for(int i : num){
+                sub = sub.replaceFirst("[?]", String.valueOf(i));
+            }
+            if(Integer.parseInt(sub) % k == 0){
+                return 1;
+            }
+            return 0;
+        } else{
+            for (int i = num[index]; i < 10; i++) {
+                total += Permute(num, index + 1, s, k);
+                num[index]++;
+            }
+            num[index] = 0;
+        }
+        return total;
+    }
 }
