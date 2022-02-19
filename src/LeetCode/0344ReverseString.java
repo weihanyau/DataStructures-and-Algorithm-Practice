@@ -1,20 +1,10 @@
 package LeetCode;
 
 class ReverseString {
-    public String reverseWords(String s) {
-        char[] chars = s.toCharArray();
+    public void reverseString(char[] s) {
         int start = 0;
-        for(int i = 0; i < chars.length; i++){
-            if(chars[i] == ' ' || i == chars.length - 1){
-                int end = chars[i] == ' ' ? i - 1 : i;
-                reverseString(chars, start, end);
-                start = i + 1;
-            }
-        }
-        return new String(chars);
-    }
+        int end = s.length - 1;
 
-    public void reverseString(char[] s, int start, int end) {
         while(start < end){
             char temp = s[start];
             s[start] = s[end];
