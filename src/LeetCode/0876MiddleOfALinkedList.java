@@ -1,6 +1,6 @@
 package LeetCode;
 
-public class MiddleOfALinkedList {
+class MiddleOfALinkedList {
     public ListNode middleNode(ListNode head) {
         ListNode first = head;
         ListNode second = head;
