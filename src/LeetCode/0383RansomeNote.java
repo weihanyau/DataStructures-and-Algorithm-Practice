@@ -14,7 +14,7 @@ class RansomeNote{
                 magazineCount[magazineChars[i] - 'a']++;
             }
             for(int i = 0; i < 26; i++){
-                if(ransomCount[i] > magazineCount[i]){
+                if(ransomCount[i] != magazineCount[i]){
                     return false;
                 }
             }
