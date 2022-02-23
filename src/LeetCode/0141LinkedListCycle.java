@@ -18,13 +18,13 @@ class LinkedListCycle {
 
     //Two pointer, one faster than the other, if there is a cycle, they will eventually meet
     public boolean hasCycleFaster(ListNode head) {
-        if(head==null) return false;
+        if (head == null) return false;
         ListNode walker = head;
         ListNode runner = head;
-        while(runner.next!=null && runner.next.next!=null) {
+        while (runner.next != null && runner.next.next != null) {
             walker = walker.next;
             runner = runner.next.next;
-            if(walker==runner) return true;
+            if (walker == runner) return true;
         }
         return false;
     }
