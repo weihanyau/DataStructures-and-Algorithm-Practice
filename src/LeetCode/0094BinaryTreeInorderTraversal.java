@@ -1,8 +1,8 @@
 package LeetCode;
 import java.util.*;
 
-class BinaryTreePreorderTraversal {
-    public List<Integer> preorderTraversal(TreeNode root) {
+class BinaryTreeInorderTraversal {
+    public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         traverse(ans, root);
         return ans;
@@ -12,8 +12,9 @@ class BinaryTreePreorderTraversal {
         if(node == null){
             return;
         }
+
         traverse(ans, node.left);
-        traverse(ans, node.right);
         ans.add(node.val);
+        traverse(ans, node.right);
     }
 }
