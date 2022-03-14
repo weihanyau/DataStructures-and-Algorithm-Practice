@@ -1,0 +1,79 @@
+import java.util.*;
+import java.io.*;
+
+class Scratch {
+    public static void main(String[] args) {
+        String[] ref = {"2","22","222",
+                "3","33","333",
+                "4","44","444",
+                "5","55","555",
+                "6","66","666",
+                "7","77","777","7777",
+                "8","88","888",
+                "9","99","999","9999"};
+        FastReader fr = new FastReader();
+        int n = fr.nextInt();
+        long a = System.currentTimeMillis();
+        for(int i = 0; i < n; i++){
+            String in = fr.nextLine();
+            StringBuffer ans = new StringBuffer("");
+            for(char letter : in.toCharArray()){
+                if(letter == ' '){
+                    ans.append("0");
+                }else if (letter <= 'Z'){
+                    ans.append(ref[letter - 'A']);
+                }else if(letter <= 'z'){
+                    ans.append(ref[letter - 'a']);
+                }
+            }
+            System.out.println(ans);
+        }
+        long b = System.currentTimeMillis();
+        System.out.println("Time take: " + (b-a));
+    }
+
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader()
+        {
+            br = new BufferedReader(
+                    new InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() { return Integer.parseInt(next()); }
+
+        long nextLong() { return Long.parseLong(next()); }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try {
+                str = br.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+}

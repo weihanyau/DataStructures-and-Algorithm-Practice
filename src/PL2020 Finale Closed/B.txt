@@ -1,0 +1,74 @@
+import java.util.*;
+import java.io.*;
+
+class Scratch {
+    public static void main(String[] args) {
+        FastReader fr = new FastReader();
+        int n = fr.nextInt();
+        long a = System.currentTimeMillis();
+        for(int i = 0; i < n; i++){
+            String[] in1 = fr.nextLine().split("\\.");
+            String[] in2 = fr.nextLine().split("\\.");
+            if(check(in1, in2)){
+                System.out.println("Yes");
+            }else{
+                System.out.println("No");
+            }
+        }
+        long b = System.currentTimeMillis();
+        System.out.println("Time take: " + (b-a));
+    }
+    public static boolean check(String[] in1, String[] in2){
+        for(int j = 0; j < in1.length; j++){
+            if(Integer.parseInt(in1[j]) != Integer.parseInt(in2[j], 2)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader()
+        {
+            br = new BufferedReader(
+                    new InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() { return Integer.parseInt(next()); }
+
+        long nextLong() { return Long.parseLong(next()); }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try {
+                str = br.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+}
