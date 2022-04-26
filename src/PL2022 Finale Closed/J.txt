@@ -1,0 +1,86 @@
+import java.util.*;
+import java.io.*;
+
+public class Scratch10 {
+    public static void main(String[] args) {
+        FastReader fr = new FastReader();
+        int t = fr.nextInt();
+        for(int i = 0; i < t; i++) {
+            int m = fr.nextInt();
+            int n = fr.nextInt();
+            int r = fr.nextInt();
+            int c = fr.nextInt();
+            int newColour = fr.nextInt();
+            int[][] image = new int[m][n];
+            for(int j = 0; j < m; j++){
+                for(int k = 0; k < n; k++){
+                    image[j][k] = fr.nextInt();
+                }
+            }
+            dfs(image,r,c,image[r][c],newColour);
+            for(int j = 0; j < m; j++){
+                for(int k = 0; k < n; k++){
+                    if(k == n - 1){
+                        System.out.println(image[j][k]);
+                    } else{
+                        System.out.print(image[j][k] + " ");
+                    }
+                }
+            }
+        }
+    }
+
+    public static void dfs(int[][] image, int sr, int sc, int baseColor, int newColor){
+
+        if(sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length || image[sr][sc] != baseColor) return;
+        image[sr][sc] = newColor;
+        dfs(image, sr - 1, sc, baseColor,newColor);
+        dfs(image, sr + 1, sc, baseColor,newColor);
+        dfs(image, sr, sc - 1, baseColor,newColor);
+        dfs(image, sr, sc + 1, baseColor,newColor);
+    }
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader()
+        {
+            br = new BufferedReader(
+                    new InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() { return Integer.parseInt(next()); }
+
+        long nextLong() { return Long.parseLong(next()); }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try {
+                str = br.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+}
