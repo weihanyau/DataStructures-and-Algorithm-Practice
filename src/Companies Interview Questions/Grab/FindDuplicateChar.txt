@@ -1,0 +1,7 @@
+Given a string:
+
+"abccde"
+
+Output the character that occurs twice in the string
+
+"c"

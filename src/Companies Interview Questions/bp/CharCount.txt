@@ -1,0 +1,9 @@
+Given a String
+
+"hello"
+
+Count each of the character and output the character along with their count into a string based on character ascending order. Like so:
+
+"e1h1l2o1"
+
+Notes: All uppercase letter count as lowercase letter.

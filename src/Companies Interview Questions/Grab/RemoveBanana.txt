@@ -1,0 +1,16 @@
+On each move, you can remove BANANA (1 B, 3 A, 2 N) from a String.
+Given a string, output moves require to remove all BANANA from the String.
+
+For example;
+
+"BNAAANXX" ----1 move----> "XX" (1 B, 3 A, 2 N removed from the string)
+
+Output:
+1
+
+
+Example 2:
+"BNAAANXXBNANNXSD" ----1 move----> "XXBNANNXAASD" ----1 move----> "XXNXSD"
+
+Output:
+2
