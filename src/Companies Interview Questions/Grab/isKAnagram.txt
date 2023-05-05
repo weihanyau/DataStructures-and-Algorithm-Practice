@@ -1,0 +1,36 @@
+Q2: (25 mins)
+Given two strings of lowercase alphabets and a value k, the task is to find if two strings are K-anagrams of each other or not.
+Two strings are K-anagrams of each other if they can become anagram by replacing at most k characters in a string.
+Implement a function isKAnagram that returns true if the two strings are k-anagram, or false if they are not.
+
+grab => brag (example of anagram)
+
+
+isKAnagram('anagram', 'grammar', 2) => TRUE
+
+
+I can change up to 2 letters in either word to make them anagrams of each other
+anagram
+amagram
+rmagram => grammar
+grammar
+isKAnagram('geeks', 'eggkf', 1) => FALSE
+
+a: 3 	a: 2	diff: 1
+n: 1 	n: 0	diff: 1
+g: 1 	g: 1  diff: 0
+m: 1 	m: 2  diff: -1
+r: 1 	r: 2  diff: -1
+
+Create two charMapa size of [26]
+kDiff = 0;
+Store the total number of characters in the both anagram (a map of char -> total num of char in anagram)
+charMap1 for first anagram
+charMap2 for second anagram
+loop through both array at the same time
+Take the difference for total char of charMap1 with charMap2
+
+if(diff > 0){
+	kDiff += diff;
+}
+compare kDiff with the provided k value (return kDiff == k)

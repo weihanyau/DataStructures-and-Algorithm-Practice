@@ -1,0 +1,23 @@
+# Q1: Write a function max_consecutive_ones that takes in a binary array consisting of only 0s and 1s and returns the maximum number of consecutive 1s.
+
+
+# max_consecutive_ones([1,1,0,1,1,1])
+
+#Result: 3
+function findMaxConsecutiveOnes(nums){
+	let maxConsecutiveSum = 0;
+	let currConsecutiveSum = 0;
+  
+  nums.forEach((num) => {
+  	if(num){
+    	currConsecutiveSum++;
+		continue;
+    }
+	
+	maxConsecutiveSum = Math.max(maxConsecutiveSum, currConsecutiveSum);
+    currConsecutiveSum = 0;
+    
+  })
+  
+  return Math.max(maxConsecutiveSum, currConsecutiveSum);
+}
