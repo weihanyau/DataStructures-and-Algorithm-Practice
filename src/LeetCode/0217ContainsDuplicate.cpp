@@ -1,17 +1,17 @@
 using namespace std;
 
 #include <vector>
-#include <set>
+#include <unordered_set>
 
 class Solution
 {
 public:
     bool containsDuplicate(vector<int> &nums)
     {
-        set<int> currNums;
-        for (auto &num : nums)
+        unordered_set<int> currNums;
+        for (int num : nums)
         {
-            if (currNums.count(num) == 1)
+            if (currNums.find(num) != currNums.end())
             {
                 return true;
             };
