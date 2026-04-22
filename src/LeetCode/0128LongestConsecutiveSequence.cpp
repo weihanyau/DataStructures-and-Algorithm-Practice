@@ -23,6 +23,7 @@ class Solution {
                     continue;
                 }
 
+                int tempPrev = store[prev];
                 if (store[prev] == prev) {
                     store[prev] = store[next];
                 } else {
@@ -32,7 +33,7 @@ class Solution {
                 if (store[next] == next) {
                     store[next] = store[prev];
                 } else {
-                    store[store[next]] = store[prev];
+                    store[store[next]] = tempPrev;
                 }
                 continue;
             }
@@ -49,7 +50,7 @@ class Solution {
 
             if (store.find(next) != store.end()) {
                 store[num] = store[next];
-                if (store[next] == prev) {
+                if (store[next] == next) {
                     store[next] = num;
                 } else {
                     store[store[next]] = num;
