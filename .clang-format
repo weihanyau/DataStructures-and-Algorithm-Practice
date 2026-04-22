@@ -1,0 +1,16 @@
+BasedOnStyle: Google
+
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+ColumnLimit: 0
+PenaltyReturnTypeOnItsOwnLine: 1000
+PenaltyBreakAssignment: 1000
+
+MaxEmptyLinesToKeep: 1
+AllowShortBlocksOnASingleLine: Always
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: Always
+
+BreakBeforeBraces: Attach
