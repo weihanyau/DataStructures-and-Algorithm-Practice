@@ -71,3 +71,22 @@ class Solution {
         return max;
     }
 };
+
+#include <unordered_set>
+
+class Solution2 {
+   public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> store(nums.begin(), nums.end());
+        int maxLen = 0;
+
+        for (int num : store) {
+            if (store.count(num - 1)) continue;
+            int len = 1;
+            while (store.count(num + len)) len++;
+            maxLen = max(maxLen, len);
+        }
+
+        return maxLen;
+    }
+};
