@@ -3,7 +3,6 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 class Solution {
@@ -15,125 +14,111 @@ class Solution {
         return true;
     }
 
+   public:
     vector<vector<int>> palindromePairs(vector<string>& words) {
         vector<vector<int>> result;
 
-        unordered_map<string, vector<int>> firstMap;
-        unordered_map<string, vector<int>> secondMap;
-        unordered_set<string> palindromeMap;
-
-        for (int idx = 0; idx < words.size(); idx++) {
-            string word = words[idx];
-            if (word == "") continue;
-
-            string pair = "";
-            for (int j = word.size() - 1; j >= 0; j--) {
-                pair += word[j];
-                // remaining prefix is word[0..j-1]; add if it's a palindrome
-                if (j == 0 || isPalin(word, 0, j - 1)) {
-                    firstMap[pair].push_back(idx);
-                }
-            }
-
-            pair = "";
-            for (int j = 0; j < (int)word.size(); j++) {
-                pair = word[j] + pair;
-                if ((int)pair.size() == (int)word.size()) continue;
-                // remaining suffix is word[j+1..end]; add if it's a palindrome
-                if (j + 1 == (int)word.size() || isPalin(word, j + 1, word.size() - 1)) {
-                    secondMap[pair].push_back(idx);
-                }
-            }
-
-            bool isPalindrome = true;
-            for (int start = 0, end = word.size() - 1; start < end; start++, end--) {
-                if (word[start] != word[end]) {
-                    isPalindrome = false;
-                    break;
-                }
-            }
-
-            if (isPalindrome) {
-                palindromeMap.insert(word);
-            }
-        }
+        unordered_map<string, vector<int>> lookupMap;
 
         for (int i = 0; i < words.size(); i++) {
-            string& word = words[i];
+            lookupMap[words[i]].push_back(i);
+        }
 
-            if (word == "") {
-                for (int j = 0; j < words.size(); j++) {
-                    if (i == j) continue;
-                    if (palindromeMap.count(words[j]) == 1) {
-                        result.push_back({i, j});
-                        result.push_back({j, i});
+        for (int curr = 0; curr < words.size(); curr++) {
+            string& word = words[curr];
+
+            if (word == "" || isPalin(word, 0, word.size() - 1)) {
+                for (int lookupIndex : lookupMap[""]) {
+                    if (lookupIndex == curr) continue;
+                    result.push_back({lookupIndex, curr});
+                    result.push_back({curr, lookupIndex});
+                }
+            }
+
+            if (word == "") continue;
+
+            for (int i = 0; i < word.size() - 1; i++) {
+                if (isPalin(word, 0, i)) {
+                    string cut = word.substr(i + 1);
+                    string reversedCut(cut.rbegin(), cut.rend());
+                    vector<int> lookupIndexs = lookupMap[reversedCut];
+                    for (int lookupIndex : lookupIndexs) {
+                        if (lookupIndex == curr) continue;
+                        result.push_back({lookupIndex, curr});
                     }
                 }
-                continue;
             }
 
-            if (firstMap.find(word) != firstMap.end()) {
-                vector<int> indexArray = firstMap[word];
-                for (int index : indexArray) {
-                    if (i == index) continue;
-                    result.push_back({i, index});
+            for (int i = 0; i < word.size() - 1; i++) {
+                if (isPalin(word, word.size() - 1 - i, word.size() - 1)) {
+                    string cut = word.substr(0, word.size() - i - 1);
+                    string reversedCut(cut.rbegin(), cut.rend());
+                    vector<int> lookupIndexs = lookupMap[reversedCut];
+                    for (int lookupIndex : lookupIndexs) {
+                        if (lookupIndex == curr) continue;
+                        result.push_back({curr, lookupIndex});
+                    }
                 }
             }
 
-            if (secondMap.find(word) != secondMap.end()) {
-                vector<int> indexArray = secondMap[word];
-                for (int index : indexArray) {
-                    if (i == index) continue;
-                    result.push_back({index, i});
-                }
+            string reversedWord(word.rbegin(), word.rend());
+            for (int lookupIndex : lookupMap[reversedWord]) {
+                if (lookupIndex == curr) continue;
+                result.push_back({curr, lookupIndex});
             }
         }
 
-        cout << "firstMap" << endl;
-        for (const auto& [key, value] : firstMap) {
-            cout << key << " | ";
-            for (const int& v : value) {
-                cout << v;
-            }
-            cout << endl;
-        }
+        // cout << "firstMap" << endl;
+        // for (const auto& [key, value] : firstMap) {
+        //     cout << key << " | ";
+        //     for (const int& v : value) {
+        //         cout << v;
+        //     }
+        //     cout << endl;
+        // }
 
-        cout << "secondMap" << endl;
-        for (const auto& [key, value] : secondMap) {
-            cout << key << " | ";
-            for (const int& v : value) {
-                cout << v;
-            }
-            cout << endl;
-        }
+        // cout << "secondMap" << endl;
+        // for (const auto& [key, value] : secondMap) {
+        //     cout << key << " | ";
+        //     for (const int& v : value) {
+        //         cout << v;
+        //     }
+        //     cout << endl;
+        // }
 
-        cout << "result" << endl;
-        cout << "[";
-        for (vector<int>& r : result) {
-            cout << "[";
-            for (int& index : r) {
-                cout << index << ",";
-            }
-            cout << "]";
-        }
-        cout << "]" << endl;
+        // cout << "result" << endl;
+        // cout << "[";
+        // for (vector<int>& r : result) {
+        //     cout << "[";
+        //     for (int& index : r) {
+        //         cout << index << ",";
+        //     }
+        //     cout << "]";
+        // }
+        // cout << "]" << endl;
 
         return result;
     }
 };
 
-int main() {
-    Solution test;
-    // vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
-    // test.palindromePairs(words);
+// int main() {
+//     Solution test;
+//     vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
+//     test.palindromePairs(words);
 
-    // vector<string> words1 = {"bat", "tab", "cat"};
-    // test.palindromePairs(words1);
+//     vector<string> words1 = {"bat", "tab", "cat"};
+//     test.palindromePairs(words1);
 
-    // vector<string> words2 = {"a", "abc", "aba", ""};
-    // test.palindromePairs(words2);
+//     vector<string> words2 = {"a", ""};
+//     test.palindromePairs(words2);
 
-    vector<string> words3 = {"abaabaa", "aaba"};
-    test.palindromePairs(words3);
-    return 0;
-}
+//     vector<string> words3 = {"abaabaa", "aaba"};
+//     test.palindromePairs(words3);
+
+//     vector<string> words4 = {"abab", "b"};
+//     test.palindromePairs(words4);
+
+//     vector<string> words5 = {"baab", "baa"};
+//     test.palindromePairs(words5);
+//     return 0;
+// }
