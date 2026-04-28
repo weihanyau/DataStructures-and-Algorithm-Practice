@@ -26,6 +26,7 @@ class Solution {
 
         for (int curr = 0; curr < words.size(); curr++) {
             string& word = words[curr];
+            string reversedWord(word.rbegin(), word.rend());
 
             if (word == "" || isPalin(word, 0, word.size() - 1)) {
                 for (int lookupIndex : lookupMap[""]) {
@@ -39,8 +40,7 @@ class Solution {
 
             for (int i = 0; i < word.size() - 1; i++) {
                 if (isPalin(word, 0, i)) {
-                    string cut = word.substr(i + 1);
-                    string reversedCut(cut.rbegin(), cut.rend());
+                    string reversedCut = reversedWord.substr(0, word.size() - i - 1);
                     vector<int> lookupIndexs = lookupMap[reversedCut];
                     for (int lookupIndex : lookupIndexs) {
                         if (lookupIndex == curr) continue;
@@ -51,8 +51,7 @@ class Solution {
 
             for (int i = 0; i < word.size() - 1; i++) {
                 if (isPalin(word, word.size() - 1 - i, word.size() - 1)) {
-                    string cut = word.substr(0, word.size() - i - 1);
-                    string reversedCut(cut.rbegin(), cut.rend());
+                    string reversedCut = reversedWord.substr(i + 1);
                     vector<int> lookupIndexs = lookupMap[reversedCut];
                     for (int lookupIndex : lookupIndexs) {
                         if (lookupIndex == curr) continue;
@@ -61,7 +60,6 @@ class Solution {
                 }
             }
 
-            string reversedWord(word.rbegin(), word.rend());
             for (int lookupIndex : lookupMap[reversedWord]) {
                 if (lookupIndex == curr) continue;
                 result.push_back({curr, lookupIndex});
@@ -101,24 +99,24 @@ class Solution {
     }
 };
 
-// int main() {
-//     Solution test;
-//     vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
-//     test.palindromePairs(words);
+int main() {
+    Solution test;
+    vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
+    test.palindromePairs(words);
 
-//     vector<string> words1 = {"bat", "tab", "cat"};
-//     test.palindromePairs(words1);
+    // vector<string> words1 = {"bat", "tab", "cat"};
+    // test.palindromePairs(words1);
 
-//     vector<string> words2 = {"a", ""};
-//     test.palindromePairs(words2);
+    // vector<string> words2 = {"a", ""};
+    // test.palindromePairs(words2);
 
-//     vector<string> words3 = {"abaabaa", "aaba"};
-//     test.palindromePairs(words3);
+    // vector<string> words3 = {"abaabaa", "aaba"};
+    // test.palindromePairs(words3);
 
-//     vector<string> words4 = {"abab", "b"};
-//     test.palindromePairs(words4);
+    // vector<string> words4 = {"abab", "b"};
+    // test.palindromePairs(words4);
 
-//     vector<string> words5 = {"baab", "baa"};
-//     test.palindromePairs(words5);
-//     return 0;
-// }
+    // vector<string> words5 = {"baab", "baa"};
+    // test.palindromePairs(words5);
+    return 0;
+}
