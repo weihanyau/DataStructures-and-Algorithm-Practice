@@ -29,10 +29,13 @@ class Solution {
             string reversedWord(word.rbegin(), word.rend());
 
             if (word == "" || isPalin(word, 0, word.size() - 1)) {
-                for (int lookupIndex : lookupMap[""]) {
-                    if (lookupIndex == curr) continue;
-                    result.push_back({lookupIndex, curr});
-                    result.push_back({curr, lookupIndex});
+                auto it = lookupMap.find("");
+                if (it != lookupMap.end()) {
+                    for (int lookupIndex : it->second) {
+                        if (lookupIndex == curr) continue;
+                        result.push_back({lookupIndex, curr});
+                        result.push_back({curr, lookupIndex});
+                    }
                 }
             }
 
@@ -41,10 +44,12 @@ class Solution {
             for (int i = 0; i < word.size() - 1; i++) {
                 if (isPalin(word, 0, i)) {
                     string reversedCut = reversedWord.substr(0, word.size() - i - 1);
-                    vector<int> lookupIndexs = lookupMap[reversedCut];
-                    for (int lookupIndex : lookupIndexs) {
-                        if (lookupIndex == curr) continue;
-                        result.push_back({lookupIndex, curr});
+                    auto it = lookupMap.find(reversedCut);
+                    if (it != lookupMap.end()) {
+                        for (int lookupIndex : it->second) {
+                            if (lookupIndex == curr) continue;
+                            result.push_back({lookupIndex, curr});
+                        }
                     }
                 }
             }
@@ -52,17 +57,22 @@ class Solution {
             for (int i = 0; i < word.size() - 1; i++) {
                 if (isPalin(word, word.size() - 1 - i, word.size() - 1)) {
                     string reversedCut = reversedWord.substr(i + 1);
-                    vector<int> lookupIndexs = lookupMap[reversedCut];
-                    for (int lookupIndex : lookupIndexs) {
-                        if (lookupIndex == curr) continue;
-                        result.push_back({curr, lookupIndex});
+                    auto it = lookupMap.find(reversedCut);
+                    if (it != lookupMap.end()) {
+                        for (int lookupIndex : it->second) {
+                            if (lookupIndex == curr) continue;
+                            result.push_back({curr, lookupIndex});
+                        }
                     }
                 }
             }
 
-            for (int lookupIndex : lookupMap[reversedWord]) {
-                if (lookupIndex == curr) continue;
-                result.push_back({curr, lookupIndex});
+            auto it = lookupMap.find(reversedWord);
+            if (it != lookupMap.end()) {
+                for (int lookupIndex : it->second) {
+                    if (lookupIndex == curr) continue;
+                    result.push_back({curr, lookupIndex});
+                }
             }
         }
 
